@@ -8,7 +8,7 @@ class SnakePos {
   }
 }
 
-let speed = 7;
+let speed = 5;
 
 let tileCount = 20;
 let tileSize = canvas.width / tileCount - 2;
@@ -86,7 +86,8 @@ function isGameOver() {
     }
   }
 
-  if (gameOver) { ///fix gameover function
+  ///gameover function
+  if (gameOver) { 
     ctx.fillStyle = "white";
     ctx.font = "50px Verdana";
 
@@ -94,7 +95,8 @@ function isGameOver() {
       ctx.fillStyle = "white";
       ctx.font = "50px Verdana";
 
-      
+      // gameover massage with gradient
+
       let gradient = ctx.createLinearGradient(0, 0, canvas.width, 0);
       gradient.addColorStop("0", " red");
       gradient.addColorStop("0.5", "blue");
@@ -142,7 +144,7 @@ function changeSnakePosition() {
   headX = headX + xVelocity;
   headY = headY + yVelocity;
 }
-
+//snake food(apple)
 function drawApple() {
   ctx.fillStyle = "red";
   ctx.fillRect(foodX * tileCount, foodY * tileCount, tileSize, tileSize);
