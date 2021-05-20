@@ -30,6 +30,7 @@ let yVelocity = 0;
 let score = 0;
 
 
+
 //game loop
 function drawGame() {
   xVelocity = inputsXVelocity;
@@ -93,7 +94,17 @@ function isGameOver() {
       ctx.fillStyle = "white";
       ctx.font = "50px Verdana";
 
+      let gradient = ctx.createLinearGradient(0, 0, canvas.width, 0);
+      gradient.addColorStop("0", " red");
+      gradient.addColorStop("0.5", "blue");
+      gradient.addColorStop("1.0", "yellow");
+      // Fill with gradient
+      ctx.fillStyle = gradient;
+
+      ctx.fillText("Game Over;(", canvas.width / 6.5, canvas.height / 2);
+
     }
+    ctx.fillText("Game Over;(", canvas.width / 6.5, canvas.height / 2);
   }
 
   return gameOver;
