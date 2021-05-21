@@ -25,8 +25,7 @@ class SnakePos {
   }
 }
 
-//json file
-fetch("/game-intro.json")
+fetch("/src/game-intro.json")
     .then(reponse => reponse.json())
     .then(data =>{
       console.log(data.sentence)
