@@ -1,1 +1,1 @@
-# snake game exercise 
+# Personal Project - Snake Game.
