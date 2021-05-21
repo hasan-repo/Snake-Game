@@ -1,6 +1,21 @@
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
 
+let speed = 5;
+let tileCount = 20;
+let tileSize = canvas.width / tileCount - 2;
+let headX = 10;
+let headY = 10;
+const snakeBody = [];
+let tailLength = 2;
+let foodX = 5;
+let foodY = 5;
+let inputsXVelocity = 0;
+let inputsYVelocity = 0;
+let xVelocity = 0;
+let yVelocity = 0;
+let score = 0;
+
 class SnakePos {
   constructor(x, y) {
     this.x = x;
@@ -14,30 +29,6 @@ fetch("/game-intro.json")
       console.log(data.sentence)
       document.querySelector("#g").innerText = data.sentence
     })
-
-
-let speed = 5;
-
-let tileCount = 20;
-let tileSize = canvas.width / tileCount - 2;
-
-let headX = 10;
-let headY = 10;
-const snakeBody = [];
-let tailLength = 2;
-
-let foodX = 5;
-let foodY = 5;
-
-let inputsXVelocity = 0;
-let inputsYVelocity = 0;
-
-let xVelocity = 0;
-let yVelocity = 0;
-
-let score = 0;
-
-
 
 //game loop
 function drawGame() {
@@ -112,10 +103,10 @@ function isGameOver() {
   
       ctx.fillStyle = gradient;
 
-      ctx.fillText("Game Over;(", canvas.width / 6.5, canvas.height / 2);
+      ctx.fillText("Game Over:(", canvas.width / 6.5, canvas.height / 2);
 
     }
-    ctx.fillText("Game Over;(", canvas.width / 6.5, canvas.height / 2);
+    ctx.fillText("Game Over:(", canvas.width / 6.5, canvas.height / 2);
   }
 
   return gameOver;
