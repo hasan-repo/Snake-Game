@@ -25,6 +25,7 @@ class SnakePos {
   }
 }
 
+//json file
 fetch("/game-intro.json")
     .then(reponse => reponse.json())
     .then(data =>{
@@ -51,6 +52,7 @@ function drawGame() {
 
   drawScore();
 
+ //speed increase
   if (score > 5) {
     speed = 9;
   }
@@ -68,7 +70,7 @@ function isGameOver() {
     return false;
   }
 
-  //walls
+  //game walls
   if (headX < 0) {
     gameOver = true;
   } else if (headX === tileCount) {
@@ -114,6 +116,7 @@ function isGameOver() {
   return gameOver;
 }
 
+//score count
 function drawScore() {
   ctx.fillStyle = "white";
   ctx.font = "10px Verdana";
@@ -125,6 +128,7 @@ function clearScreen() {
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 }
 
+//snake size
 function drawSnake() {
   ctx.fillStyle = "green";
   for (let i = 0; i < snakeBody.length; i++) {
@@ -140,6 +144,7 @@ function drawSnake() {
   ctx.fillStyle = "orange";
   ctx.fillRect(headX * tileCount, headY * tileCount, tileSize, tileSize);
 }
+
 
 function changeSnakePosition() {
   headX = headX + xVelocity;
@@ -163,6 +168,7 @@ function checkAppleCollision() {
 
 document.body.addEventListener("keydown", keyDown);
 
+//use keybors up,down,left,right keys
 function keyDown(event) {
   //up
   if (event.keyCode == 38) {
