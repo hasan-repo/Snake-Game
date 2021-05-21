@@ -1,12 +1,11 @@
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
 
-let speed = 5;
-let tileCount = 20;
-let tileSize = canvas.width / tileCount - 2;
+let snakeSpeed = 5;
+let tileCont = 20;
+let tileSize = canvas.width / tileCont - 2;
 let headX = 10;
 let headY = 10;
-const snakeBody = [];
 let tailLength = 2;
 let foodX = 5;
 let foodY = 5;
@@ -15,6 +14,7 @@ let inputsYVelocity = 0;
 let xVelocity = 0;
 let yVelocity = 0;
 let score = 0;
+const snakeBody = [];
 
 const gulpSound = new Audio("/src/gulp.mp3");
 
@@ -34,12 +34,12 @@ fetch("/game-intro.json")
     })
 
 //game loop
-function drawGame() {
+function drwGame() {
   xVelocity = inputsXVelocity;
   yVelocity = inputsYVelocity;
 
   changeSnakePosition();
-  let result = isGameOver();
+  let result = gOver();
   if (result) {
     return;
   }
@@ -50,20 +50,20 @@ function drawGame() {
   drawApple();
   drawSnake();
 
-  drawScore();
+  dScore();
 
  //speed increase
   if (score > 5) {
-    speed = 9;
+    snakeSpeed = 9;
   }
   if (score > 10) {
-    speed = 11;
+    snakeSpeed = 11;
   }
 
-  setTimeout(drawGame, 1000 / speed);
+  setTimeout(drwGame, 1000 / snakeSpeed);
 }
 
-function isGameOver() {
+function gOver() {
   let gameOver = false;
 
   if (yVelocity === 0 && xVelocity === 0) {
@@ -73,11 +73,11 @@ function isGameOver() {
   //game walls
   if (headX < 0) {
     gameOver = true;
-  } else if (headX === tileCount) {
+  } else if (headX === tileCont) {
     gameOver = true;
   } else if (headY < 0) {
     gameOver = true;
-  } else if (headY === tileCount) {
+  } else if (headY === tileCont) {
     gameOver = true;
   }
 
@@ -102,7 +102,6 @@ function isGameOver() {
 
       let gradient = ctx.createLinearGradient(0, 0, canvas.width, 0);
       gradient.addColorStop("0", " red");
-      gradient.addColorStop("0.5", "blue");
       gradient.addColorStop("1.0", "yellow");
   
       ctx.fillStyle = gradient;
@@ -117,23 +116,22 @@ function isGameOver() {
 }
 
 //score count
-function drawScore() {
-  ctx.fillStyle = "white";
-  ctx.font = "10px Verdana";
-  ctx.fillText("Score " + score, canvas.width - 50, 10);
-}
+
 
 function clearScreen() {
-  ctx.fillStyle = "black";
+  ctx.fillStyle = "gray";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 }
-
+function changeSnakePosition() {
+  headX = headX + xVelocity;
+  headY = headY + yVelocity;
+}
 //snake size
 function drawSnake() {
-  ctx.fillStyle = "green";
+  ctx.fillStyle = "black";
   for (let i = 0; i < snakeBody.length; i++) {
     let part = snakeBody[i];
-    ctx.fillRect(part.x * tileCount, part.y * tileCount, tileSize, tileSize);
+    ctx.fillRect(part.x * tileCont, part.y * tileCont, tileSize, tileSize);
   }
 
   snakeBody.push(new SnakePos(headX, headY)); 
@@ -142,24 +140,26 @@ function drawSnake() {
   }
 
   ctx.fillStyle = "orange";
-  ctx.fillRect(headX * tileCount, headY * tileCount, tileSize, tileSize);
+  ctx.fillRect(headX * tileCont, headY * tileCont, tileSize, tileSize);
+}
+
+function dScore() {
+  ctx.fillStyle = "orange";
+  ctx.font = "15px Arial";
+  ctx.fillText("Score " + score, canvas.width - 60, 20);
 }
 
 
-function changeSnakePosition() {
-  headX = headX + xVelocity;
-  headY = headY + yVelocity;
-}
 //snake food(apple)
 function drawApple() {
   ctx.fillStyle = "red";
-  ctx.fillRect(foodX * tileCount, foodY * tileCount, tileSize, tileSize);
+  ctx.fillRect(foodX * tileCont, foodY * tileCont, tileSize, tileSize);
 }
 
 function checkAppleCollision() {
   if (foodX === headX && foodY == headY) {
-    foodX = Math.floor(Math.random() * tileCount);
-    foodY = Math.floor(Math.random() * tileCount);
+    foodX = Math.floor(Math.random() * tileCont);
+    foodY = Math.floor(Math.random() * tileCont);
     tailLength++;
     score++;
     gulpSound.play();
@@ -200,4 +200,4 @@ function keyDown(event) {
   }
 }
 
-drawGame();
+drwGame();
