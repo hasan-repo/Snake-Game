@@ -16,6 +16,8 @@ let xVelocity = 0;
 let yVelocity = 0;
 let score = 0;
 
+const gulpSound = new Audio("/src/gulp.mp3");
+
 class SnakePos {
   constructor(x, y) {
     this.x = x;
