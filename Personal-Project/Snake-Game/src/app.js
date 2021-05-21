@@ -8,6 +8,14 @@ class SnakePos {
   }
 }
 
+fetch("/game-intro.json")
+    .then(reponse => reponse.json())
+    .then(data =>{
+      console.log(data.sentence)
+      document.querySelector("#g").innerText = data.sentence
+    })
+
+
 let speed = 5;
 
 let tileCount = 20;
