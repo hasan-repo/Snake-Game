@@ -13,7 +13,6 @@ let inputsXVelocity = 0;
 let inputsYVelocity = 0;
 let xVelocity = 0;
 let yVelocity = 0;
-
 let score = 0;
 const snakeBody = [];
 
